@@ -1,0 +1,24 @@
+{
+  "name": "order_online",
+  "version": "1.0.0",
+  "description": "Order online from nearby shops",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishabbahal9/orderOnline.git"
+  },
+  "keywords": [
+    "order",
+    "online",
+    "ecommerce"
+  ],
+  "author": "Rishab Bahal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rishabbahal9/orderOnline/issues"
+  },
+  "homepage": "https://github.com/rishabbahal9/orderOnline#readme"
+}
