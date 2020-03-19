@@ -1,0 +1,10 @@
+exports.status1="Success"
+exports.status2="Error"
+
+exports.string1="Email already exist"
+exports.string2="User data saved successfully"
+exports.string3="DB Error"
+exports.string4="Form data error"
+exports.string5="There is no account associated with this email."
+exports.string6="Server error"
+exports.string7="Wrong password"
