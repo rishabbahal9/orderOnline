@@ -4,6 +4,8 @@ const jwt=require("jsonwebtoken")
 const User=require("../model/user")
 const constants=require('../util/constants')
 
+
+//Test methods
 exports.getHome=(req,res,next)=>{
     res.status(200).json({page: "Home!"})
 }
@@ -11,6 +13,15 @@ exports.getHome=(req,res,next)=>{
 exports.getTest=(req,res,next)=>{
     res.status(200).json({page: "Test!"})
 }
+
+exports.getUserAuthenticatedTest=(req,res,next)=>{
+    res.status(200).json({page: "You are authenticated"})
+}
+
+
+
+
+//Original methods
 
 exports.postUserSignup=(req,res,next)=>{
     var emailPatternMatch = /[abcdefghijklmnopqrstuvwxyz@.1234567890_]/ig
@@ -106,7 +117,7 @@ exports.postUserLogin=(req,res,next)=>{
                         process.env.SecretKey,
                         {expiresIn: process.env.jwtExpiry}
                     )
-                    res.status(200).json({ token:token, status: constants.status1})
+                    res.status(200).json({ token:token, userId: storedUser._id.toString() ,status: constants.status1})
                 }
                 else
                     res.status(501).json({response: constants.string7, status: constants.status2})
@@ -120,3 +131,4 @@ exports.postUserLogin=(req,res,next)=>{
         res.status(501).json({response: constants.string3, status: constants.status2})
     })
 }
+

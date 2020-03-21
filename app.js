@@ -12,6 +12,8 @@ const mongoose=require("mongoose")
 const app=express()
 const PORT=process.env.PORT
 const userRoutes=require("./routes/user")
+const goodRoutes=require("./routes/good")
+const storeRoutes=require("./routes/store")
 
 //Creating middlewares
 app.use(bodyParser.json())
@@ -29,6 +31,8 @@ app.use((req,res,next)=>{
     next()
 })
 app.use(userRoutes.routes)
+app.use(goodRoutes.routes)
+app.use(storeRoutes.routes)
 
 app.use((req,res,next)=>{
     res.status(404).json({error: "Page not found!"})
