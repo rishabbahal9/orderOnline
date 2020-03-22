@@ -1,0 +1,413 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "online order",
+		"description": "API for e-commerce website or app",
+		"version": "1.0.0",
+		"contact": {
+			"name": "Rishab Bahal",
+			"email": "rishab0.0.4.5@gmail.com"
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000",
+			"description": "Local development server"
+		}
+	],
+	"paths": {
+		"/": {
+			"get": {
+				"tags": [
+					"Test endpoints"
+				],
+				"summary": "Returns a home.",
+				"description": "returns home and confirms server and API are working fine.",
+				"responses": {
+					"200": {
+						"description": "A JSON object",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"page": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/test": {
+			"get": {
+				"tags": [
+					"Test endpoints"
+				],
+				"summary": "Returns a test.",
+				"description": "returns test and confirms server and API are working fine.",
+				"responses": {
+					"200": {
+						"description": "Another JSON object",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"page": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/userSignup": {
+			"post": {
+				"tags": [
+					"User endpoints"
+				],
+				"summary": "Creates a new user account.",
+				"description": "Takes user details and add the user to database.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"name": {
+										"fname": "Harold",
+										"lname": "Braun"
+									},
+									"email": "haroldbraun@cc.com",
+									"pwd": "thisismypassword"
+								},
+								"properties": {
+									"name": {
+										"type": "object",
+										"properties": {
+											"fname": {
+												"type": "string"
+											},
+											"lname": {
+												"type": "string"
+											}
+										}
+									},
+									"email": {
+										"type": "string"
+									},
+									"pwd": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "User data saved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "User data saved successfully",
+										"status": "Success"
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Email already exists",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "Email already exists",
+										"status": "Error"
+									}
+								}
+							}
+						}
+					},
+					"501": {
+						"description": "Database error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "DB error",
+										"status": "Error"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/userLogin": {
+			"post": {
+				"tags": [
+					"User endpoints"
+				],
+				"summary": "Authenticates user.",
+				"description": "Takes user's login details and authenticates by sending JSON web token (JWT).",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"email": "haroldbraun@cc.com",
+									"pwd": "thisismypassword"
+								},
+								"properties": {
+									"email": {
+										"type": "string"
+									},
+									"pwd": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "User data saved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"token": {
+											"type": "string"
+										},
+										"userId": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmbmFtZSI6IlQyeHBkbWxoIiwibG5hbWUiOiJUWFZ6ZEc4PSIsImVtYWlsIjoib2xpdmlhbXVzdG9AY2MuY29tIiwiZHAiOm51bGwsImFkZHJlc3MiOm51bGwsImxvY2F0aW9uIjpudWxsLCJkYXRlQ3JlYXRdjfkdfskjAtMDMtMjJUMDg6MjU6NTYuMzUyWiIsImlhdCI6MTU4NDg2NjY0OSwiZXhwIjoxNTg0ODcwMjQ5fQ.l8-0NdTmhbJ3WOI_Xv4zJSgSDR-9Tu7Xlt4Rq61Joqk",
+										"userId": "5e7721140482a935278c586e",
+										"status": "Success"
+									}
+								}
+							}
+						}
+					},
+					"501": {
+						"description": "Any kind of server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "Server error",
+										"status": "Error"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"User": {
+				"description": "Model of User.",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "object",
+						"properties": {
+							"fname": {
+								"type": "string"
+							},
+							"lname": {
+								"type": "string"
+							}
+						}
+					},
+					"email": {
+						"type": "string"
+					},
+					"dp": {
+						"type": "string"
+					},
+					"address": {
+						"type": "object",
+						"properties": {
+							"blockNumber": {
+								"type": "number"
+							},
+							"street": {
+								"type": "string"
+							},
+							"city": {
+								"type": "string"
+							},
+							"province": {
+								"type": "string"
+							},
+							"pinCode": {
+								"type": "string"
+							}
+						}
+					},
+					"location": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"coordinates": {
+								"type": "array",
+								"items": {
+									"type": "number"
+								}
+							}
+						}
+					}
+				}
+			},
+			"Store": {
+				"description": "Model of Store.",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"address": {
+						"type": "object",
+						"properties": {
+							"blockNumber": {
+								"type": "number"
+							},
+							"street": {
+								"type": "string"
+							},
+							"city": {
+								"type": "string"
+							},
+							"province": {
+								"type": "string"
+							},
+							"pinCode": {
+								"type": "string"
+							}
+						}
+					},
+					"location": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"coordinates": {
+								"type": "array",
+								"items": {
+									"type": "number"
+								}
+							}
+						}
+					},
+					"goodsAvailable": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"quantity": {
+									"type": "number"
+								},
+								"good": {
+									"$ref": "#/components/schemas/Good"
+								}
+							}
+						}
+					}
+				}
+			},
+			"Good": {
+				"description": "Model of Good.",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"pictures": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"price": {
+						"type": "number"
+					}
+				}
+			}
+		}
+	}
+}
