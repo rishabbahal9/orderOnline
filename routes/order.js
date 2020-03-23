@@ -1,7 +1,7 @@
 //Importing 3rd party modules
 const express=require("express")
 //Importing self declared modules
-const storeController=require("../controller/store")
+const orderController=require("../controller/order")
 const isAuth=require("../util/isAuth")
 
 //Declaring variables
@@ -10,7 +10,6 @@ const router=express.Router()
 //Test routes
 
 //Original routes
-router.get('/getStores',isAuth,storeController.getStores)
-router.get('/getStores/:distance',isAuth,storeController.getStoresDistance)
+router.post('/addOrder',isAuth,orderController.postAddOrder)
 
 exports.routes=router

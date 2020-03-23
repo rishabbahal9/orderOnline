@@ -16,6 +16,7 @@ const swaggerDocument = require('./util/swagger.json')
 const userRoutes=require("./routes/user")
 const goodRoutes=require("./routes/good")
 const storeRoutes=require("./routes/store")
+const orderRoutes=require("./routes/order")
 
 //Creating middlewares
 app.use(bodyParser.json())
@@ -36,9 +37,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(userRoutes.routes)
 app.use(goodRoutes.routes)
 app.use(storeRoutes.routes)
+app.use(orderRoutes.routes)
 
 app.use((req,res,next)=>{
-    res.status(404).json({error: "Page not found!"})
+    res.status(404).json({errorhhh: "Page not found!"})
 })
 //Creating server
 const server=http.createServer(app)

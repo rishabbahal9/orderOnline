@@ -27,6 +27,9 @@ const userSchema=new Schema(
             type: String,
             required: true
         },
+        orders: {
+            type: [{type: Schema.Types.ObjectId}]
+        },
         dateCreated: {
             type: Date, 
             default: Date.now

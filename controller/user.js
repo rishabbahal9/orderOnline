@@ -106,13 +106,15 @@ exports.postUserLogin=(req,res,next)=>{
                 {
                     const token=jwt.sign(
                         {
+                            id: storedUser._id,
                             fname: new Buffer.from(storedUser.name.fname).toString('base64'),
                             lname: new Buffer.from(storedUser.name.lname).toString('base64'),
                             email: storedUser.email,
                             dp: storedUser.dp,
                             address: storedUser.address,
                             location: storedUser.location,
-                            dateCreated: storedUser.dateCreated
+                            dateCreated: storedUser.dateCreated,
+                            orders: storedUser.orders
                         },
                         process.env.SecretKey,
                         {expiresIn: process.env.jwtExpiry}

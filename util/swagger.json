@@ -6,7 +6,7 @@
 		"version": "1.0.0",
 		"contact": {
 			"name": "Rishab Bahal",
-			"email": "rishab0.0.4.5@gmail.com"
+			"email": "rishabbahal@gmail.com"
 		}
 	},
 	"servers": [
@@ -260,6 +260,227 @@
 					}
 				}
 			}
+		},
+		"/getGoods": {
+			"get": {
+				"security": [
+					{
+						"checkUserAuth": []
+					}
+				],
+				"tags": [
+					"Good endpoints"
+				],
+				"summary": "Returns array of goods objects.",
+				"description": "Returns an object having goodsArray. Returns only 5 results at a time.",
+				"responses": {
+					"200": {
+						"description": "Successfully returned array of goods object.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"goodsArray": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/Good"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"501": {
+						"description": "Any kind of server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "Server error",
+										"status": "Error"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/getStores": {
+			"get": {
+				"security": [
+					{
+						"checkUserAuth": []
+					}
+				],
+				"tags": [
+					"Store endpoints"
+				],
+				"summary": "Returns array of Store objects in aggregation with Good objects.",
+				"description": "Returns an object having StoreArray. This Store array contains goodsAvailable array which contains an object with quantity and Good objects. Returns only 5 results at a time.",
+				"responses": {
+					"200": {
+						"description": "Successfully returned array of goods object.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"storeArray": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/Store"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"501": {
+						"description": "Any kind of server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "Server error",
+										"status": "Error"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/addOrder": {
+			"post": {
+				"security": [
+					{
+						"checkUserAuth": []
+					}
+				],
+				"tags": [
+					"Order endpoints"
+				],
+				"summary": "Places an order.",
+				"description": "Places an order in Order collection and add its reference to the USer collection.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"userId": "5e777bc0dbd37b49c4e24d71",
+									"totalPrice": 300,
+									"goodsOrdered": [
+										{
+											"quantity": 1,
+											"good": "5e778e457ed459979490907f",
+											"store": "5e77cf3074f56c8d5542110e"
+										},
+										{
+											"quantity": 3,
+											"good": "5e7795cbb9a65b3190279b9a",
+											"store": "5e77cf3074f56c8d5542110e"
+										}
+									]
+								},
+								"properties": {
+									"userId": {
+										"type": "string"
+									},
+									"totalPrice": {
+										"type": "number"
+									},
+									"goodsOrdered": {
+										"type": "array",
+										"items": {
+											"properties": {
+												"quantity": {
+													"type": "number"
+												},
+												"good": {
+													"type": "string"
+												},
+												"store": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Order placed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "Order placed successfully",
+										"status": "Success"
+									}
+								}
+							}
+						}
+					},
+					"501": {
+						"description": "Server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"response": {
+											"type": "string"
+										},
+										"status": {
+											"type": "string"
+										}
+									},
+									"example": {
+										"response": "Server error",
+										"status": "Error"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {
@@ -267,7 +488,7 @@
 			"User": {
 				"description": "Model of User.",
 				"properties": {
-					"id": {
+					"_id": {
 						"type": "string"
 					},
 					"name": {
@@ -320,13 +541,22 @@
 								}
 							}
 						}
+					},
+					"orders": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Order"
+						}
+					},
+					"dateCreated": {
+						"type": "string"
 					}
 				}
 			},
 			"Store": {
 				"description": "Model of Store.",
 				"properties": {
-					"id": {
+					"_id": {
 						"type": "string"
 					},
 					"name": {
@@ -385,7 +615,7 @@
 			"Good": {
 				"description": "Model of Good.",
 				"properties": {
-					"id": {
+					"_id": {
 						"type": "string"
 					},
 					"name": {
@@ -407,6 +637,50 @@
 						"type": "number"
 					}
 				}
+			},
+			"Order": {
+				"description": "Model of Order.",
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"userId": {
+						"$ref": "#/components/schemas/User"
+					},
+					"totalPrice": {
+						"type": "number"
+					},
+					"completed": {
+						"type": "boolean"
+					},
+					"dateOrdered": {
+						"type": "string"
+					},
+					"goodsOrdered": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"quantity": {
+									"type": "number"
+								},
+								"good": {
+									"$ref": "#/components/schemas/Good"
+								},
+								"store": {
+									"$ref": "#/components/schemas/Store"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"checkUserAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWTString"
 			}
 		}
 	}
