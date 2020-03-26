@@ -3,7 +3,7 @@
 	"info": {
 		"title": "online order",
 		"description": "API for e-commerce website or app",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"contact": {
 			"name": "Rishab Bahal",
 			"email": "rishabbahal@gmail.com"
@@ -85,24 +85,17 @@
 							"schema": {
 								"type": "object",
 								"example": {
-									"name": {
-										"fname": "Harold",
-										"lname": "Braun"
-									},
+									"fname": "Harold",
+									"lname": "Braun",
 									"email": "haroldbraun@cc.com",
 									"pwd": "thisismypassword"
 								},
 								"properties": {
-									"name": {
-										"type": "object",
-										"properties": {
-											"fname": {
-												"type": "string"
-											},
-											"lname": {
-												"type": "string"
-											}
-										}
+									"fname": {
+										"type": "string"
+									},
+									"lname": {
+										"type": "string"
 									},
 									"email": {
 										"type": "string"
@@ -394,7 +387,22 @@
 						"application/json": {
 							"schema": {
 								"type": "object",
-								"example:{\"userId\":\"5e777bc0dbd37b49c4e24d71\",\"totalPrice\"": "300,\"goodsOrdered\":[{\"quantity: 1,\"good\": \"5e778e457ed459979490907f\",\"store\":\"5e77cf3074f56c8d5542110e\"},{\"quantity\": 3, \"good\": \"5e7795cbb9a65b3190279b9a\",\"store\":\"5e77cf3074f56c8d5542110e\"}]}",
+								"example": {
+									"userId": "5e777bc0dbd37b49c4e24d71",
+									"totalPrice": 300,
+									"goodsOrdered": [
+										{
+											"quantity": 1,
+											"good": "5e778e457ed459979490907f",
+											"store": "5e77cf3074f56c8d5542110e"
+										},
+										{
+											"quantity": 3,
+											"good": "5e7795cbb9a65b3190279b9a",
+											"store": "5e77cf3074f56c8d5542110e"
+										}
+									]
+								},
 								"properties": {
 									"userId": {
 										"type": "string"

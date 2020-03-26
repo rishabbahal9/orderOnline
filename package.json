@@ -1,6 +1,6 @@
 {
   "name": "order_online",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Order online from nearby shops",
   "main": "app.js",
   "scripts": {

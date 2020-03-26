@@ -28,7 +28,8 @@ exports.postUserSignup=(req,res,next)=>{
     var namePatternMatch = /[abcdefghijklmnopqrstuvwxyz]/ig
     var passwordPatternMatch = /[abcdefghijklmnopqrstuvwxyz@.1234567890_!@#$%&]/ig
 
-    var name=req.body.name
+    var fname=req.body.fname
+    var lname=req.body.lname
     var email=req.body.email
     var password=req.body.pwd
     var dp=req.body.dp
@@ -42,12 +43,12 @@ exports.postUserSignup=(req,res,next)=>{
     else
         flag=1
 
-    if(!!(name.fname.match(namePatternMatch) && name.lname.match(namePatternMatch) && email.match(emailPatternMatch) && password.match(passwordPatternMatch) && flag))
+    if(!!(fname.match(namePatternMatch) && lname.match(namePatternMatch) && email.match(emailPatternMatch) && password.match(passwordPatternMatch) && flag))
     {
         bcrypt.hash(password,12)
         .then(hashedPassword=>{
             userDetailsObject=new User({
-                name: name,
+                name: {fname: fname, lname: lname},
                 email: email,
                 pwd: hashedPassword,
                 dp: dp,
